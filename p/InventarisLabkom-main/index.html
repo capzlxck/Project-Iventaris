@@ -1,0 +1,455 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventaris Lab Komputer</title>
+    <link rel="stylesheet" href="styles.css">
+    <!-- Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <div class="header-content">
+                <div class="header-left">
+                    <div class="logo-box">
+                        <svg class="icon-lg" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="3" rx="2"/>
+                            <line x1="8" x2="16" y1="21" y2="21"/>
+                            <line x1="12" x2="12" y1="17" y2="21"/>
+                        </svg>
+                    </div>
+                    <div>
+                        <h1 class="header-title">Inventaris Lab Komputer</h1>
+                        <p class="header-subtitle">Sistem Manajemen Aset Lab Komputer Kampus</p>
+                    </div>
+                </div>
+                <button class="btn-primary" onclick="openDialog()">
+                    <svg class="icon-sm" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M5 12h14"/><path d="M12 5v14"/>
+                    </svg>
+                    Tambah Perangkat
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Statistics Cards -->
+            <div class="stats-grid">
+                <!-- Total Perangkat -->
+                <div class="card stat-card stat-card-blue">
+                    <div class="card-header">
+                        <h3 class="card-title-sm">Total Perangkat</h3>
+                        <svg class="icon-sm text-blue" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <rect width="20" height="14" x="2" y="3" rx="2"/>
+                            <line x1="8" x2="16" y1="21" y2="21"/>
+                            <line x1="12" x2="12" y1="17" y2="21"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <div class="stat-number">5</div>
+                        <p class="stat-description">Semua jenis perangkat</p>
+                    </div>
+                </div>
+
+                <!-- Perangkat Aktif -->
+                <div class="card stat-card stat-card-green">
+                    <div class="card-header">
+                        <h3 class="card-title-sm">Perangkat Aktif</h3>
+                        <svg class="icon-sm text-green" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"/><path d="m9 11 3 3L22 4"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <div class="stat-number text-green">3</div>
+                        <p class="stat-description">Siap digunakan</p>
+                    </div>
+                </div>
+
+                <!-- Perangkat Rusak -->
+                <div class="card stat-card stat-card-red">
+                    <div class="card-header">
+                        <h3 class="card-title-sm">Perangkat Rusak</h3>
+                        <svg class="icon-sm text-red" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="m21.73 18-8-14a2 2 0 0 0-3.48 0l-8 14A2 2 0 0 0 4 21h16a2 2 0 0 0 1.73-3"/><path d="M12 9v4"/><path d="M12 17h.01"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <div class="stat-number text-red">1</div>
+                        <p class="stat-description">Perlu perbaikan</p>
+                    </div>
+                </div>
+
+                <!-- Maintenance -->
+                <div class="card stat-card stat-card-orange">
+                    <div class="card-header">
+                        <h3 class="card-title-sm">Maintenance</h3>
+                        <svg class="icon-sm text-orange" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
+                        </svg>
+                    </div>
+                    <div class="card-content">
+                        <div class="stat-number text-orange">1</div>
+                        <p class="stat-description">Sedang dipelihara</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tabs -->
+            <div class="tabs">
+                <div class="tabs-list">
+                    <button class="tab-trigger active" onclick="showTab('hardware')">Hardware</button>
+                    <button class="tab-trigger" onclick="showTab('software')">Software & Lisensi</button>
+                </div>
+
+                <!-- Hardware Tab -->
+                <div id="tab-hardware" class="tab-content active">
+                    <!-- Search and Filter Card -->
+                    <div class="card">
+                        <div class="card-content-padded">
+                            <div class="search-filter">
+                                <div class="search-box">
+                                    <svg class="search-icon" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                        <circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/>
+                                    </svg>
+                                    <input type="text" class="input" placeholder="Cari kode aset, merk, model, serial number...">
+                                </div>
+                                <select class="select">
+                                    <option>Semua Lab</option>
+                                    <option>Lab Komputer 1</option>
+                                    <option>Lab Komputer 2</option>
+                                    <option>Lab Komputer 3</option>
+                                    <option>Lab Multimedia</option>
+                                    <option>Lab Jaringan</option>
+                                    <option>Ruang Server</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Table Card -->
+                    <div class="card">
+                        <div class="card-header-main">
+                            <h2 class="card-title">Daftar Perangkat Hardware</h2>
+                            <p class="card-subtitle">Menampilkan 5 dari 5 perangkat</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="table-wrapper">
+                                <table class="table">
+                                    <thead>
+                                        <tr>
+                                            <th>Kode Aset</th>
+                                            <th>Tipe</th>
+                                            <th>Merk & Model</th>
+                                            <th>Spesifikasi</th>
+                                            <th>Status</th>
+                                            <th>Garansi</th>
+                                            <th class="text-right">Aksi</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <!-- Row 1 -->
+                                        <tr>
+                                            <td class="font-mono">PC-2024-001</td>
+                                            <td>
+                                                <div class="flex-center">
+                                                    <svg class="icon-sm text-gray" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <rect width="20" height="14" x="2" y="3" rx="2"/>
+                                                        <line x1="8" x2="16" y1="21" y2="21"/>
+                                                        <line x1="12" x2="12" y1="17" y2="21"/>
+                                                    </svg>
+                                                    <span>Desktop</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="brand-model">
+                                                    <div class="brand">Dell</div>
+                                                    <div class="model">OptiPlex 7090</div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="specs">
+                                                    <div class="spec-main">Intel Core i7-11700</div>
+                                                    <div class="spec-sub">16GB DDR4 • 512GB NVMe SSD</div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-green">Aktif</span></td>
+                                            <td>15 Jan 2027</td>
+                                            <td class="text-right">
+                                                <div class="action-buttons">
+                                                    <button class="btn-icon" title="Edit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <button class="btn-icon btn-delete" title="Hapus">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Row 2 -->
+                                        <tr>
+                                            <td class="font-mono">PC-2024-002</td>
+                                            <td>
+                                                <div class="flex-center">
+                                                    <svg class="icon-sm text-gray" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <rect width="20" height="14" x="2" y="3" rx="2"/>
+                                                        <line x1="8" x2="16" y1="21" y2="21"/>
+                                                        <line x1="12" x2="12" y1="17" y2="21"/>
+                                                    </svg>
+                                                    <span>Desktop</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="brand-model">
+                                                    <div class="brand">HP</div>
+                                                    <div class="model">ProDesk 600 G6</div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="specs">
+                                                    <div class="spec-main">Intel Core i5-10500</div>
+                                                    <div class="spec-sub">8GB DDR4 • 256GB SSD</div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-red">Rusak</span></td>
+                                            <td>20 Agu 2026</td>
+                                            <td class="text-right">
+                                                <div class="action-buttons">
+                                                    <button class="btn-icon" title="Edit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <button class="btn-icon btn-delete" title="Hapus">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Row 3 -->
+                                        <tr>
+                                            <td class="font-mono">LAP-2024-001</td>
+                                            <td>
+                                                <div class="flex-center">
+                                                    <svg class="icon-sm text-gray" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <path d="M20 16V7a2 2 0 0 0-2-2H6a2 2 0 0 0-2 2v9m16 0H4m16 0 1.28 2.55a1 1 0 0 1-.9 1.45H3.62a1 1 0 0 1-.9-1.45L4 16"/>
+                                                    </svg>
+                                                    <span>Laptop</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="brand-model">
+                                                    <div class="brand">Lenovo</div>
+                                                    <div class="model">ThinkPad E14</div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="specs">
+                                                    <div class="spec-main">AMD Ryzen 5 5500U</div>
+                                                    <div class="spec-sub">16GB DDR4 • 512GB SSD</div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-green">Aktif</span></td>
+                                            <td>10 Mar 2027</td>
+                                            <td class="text-right">
+                                                <div class="action-buttons">
+                                                    <button class="btn-icon" title="Edit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <button class="btn-icon btn-delete" title="Hapus">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Row 4 -->
+                                        <tr>
+                                            <td class="font-mono">MON-2024-001</td>
+                                            <td>
+                                                <div class="flex-center">
+                                                    <svg class="icon-sm text-gray" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <rect width="20" height="14" x="2" y="3" rx="2"/>
+                                                        <line x1="8" x2="16" y1="21" y2="21"/>
+                                                        <line x1="12" x2="12" y1="17" y2="21"/>
+                                                    </svg>
+                                                    <span>Monitor</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="brand-model">
+                                                    <div class="brand">LG</div>
+                                                    <div class="model">24MK430H</div>
+                                                </div>
+                                            </td>
+                                            <td>-</td>
+                                            <td><span class="badge badge-green">Aktif</span></td>
+                                            <td>05 Des 2026</td>
+                                            <td class="text-right">
+                                                <div class="action-buttons">
+                                                    <button class="btn-icon" title="Edit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <button class="btn-icon btn-delete" title="Hapus">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                        <!-- Row 5 -->
+                                        <tr>
+                                            <td class="font-mono">PC-2023-015</td>
+                                            <td>
+                                                <div class="flex-center">
+                                                    <svg class="icon-sm text-gray" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                        <rect width="20" height="14" x="2" y="3" rx="2"/>
+                                                        <line x1="8" x2="16" y1="21" y2="21"/>
+                                                        <line x1="12" x2="12" y1="17" y2="21"/>
+                                                    </svg>
+                                                    <span>Desktop</span>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="brand-model">
+                                                    <div class="brand">Asus</div>
+                                                    <div class="model">D500MA</div>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div class="specs">
+                                                    <div class="spec-main">Intel Core i3-10100</div>
+                                                    <div class="spec-sub">8GB DDR4 • 1TB HDD</div>
+                                                </div>
+                                            </td>
+                                            <td><span class="badge badge-orange">Maintenance</span></td>
+                                            <td>18 Feb 2026</td>
+                                            <td class="text-right">
+                                                <div class="action-buttons">
+                                                    <button class="btn-icon" title="Edit">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M17 3a2.85 2.83 0 1 1 4 4L7.5 20.5 2 22l1.5-5.5Z"/>
+                                                        </svg>
+                                                    </button>
+                                                    <button class="btn-icon btn-delete" title="Hapus">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                                            <path d="M3 6h18"/><path d="M19 6v14c0 1-1 2-2 2H7c-1 0-2-1-2-2V6"/><path d="M8 6V4c0-1 1-2 2-2h4c1 0 2 1 2 2v2"/>
+                                                        </svg>
+                                                    </button>
+                                                </div>
+                                            </td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Software Tab -->
+                <div id="tab-software" class="tab-content">
+                    <div class="card">
+                        <div class="card-header-main">
+                            <h2 class="card-title">Daftar Software & Lisensi</h2>
+                            <p class="card-subtitle">Menampilkan 4 software</p>
+                        </div>
+                        <div class="card-content">
+                            <div class="software-grid">
+                                <!-- Software Item 1 -->
+                                <div class="software-card">
+                                    <div class="software-header">
+                                        <h3>Microsoft Office 365</h3>
+                                        <span class="badge badge-blue">Volume</span>
+                                    </div>
+                                    <div class="software-details">
+                                        <p><strong>Vendor:</strong> Microsoft</p>
+                                        <p><strong>Versi:</strong> 2024</p>
+                                        <p><strong>Lisensi:</strong> 45 / 50 digunakan</p>
+                                        <p><strong>Kedaluwarsa:</strong> 31 Des 2026</p>
+                                    </div>
+                                </div>
+                                <!-- Software Item 2 -->
+                                <div class="software-card">
+                                    <div class="software-header">
+                                        <h3>Adobe Creative Cloud</h3>
+                                        <span class="badge badge-purple">Site License</span>
+                                    </div>
+                                    <div class="software-details">
+                                        <p><strong>Vendor:</strong> Adobe</p>
+                                        <p><strong>Versi:</strong> 2024</p>
+                                        <p><strong>Lisensi:</strong> 28 / 30 digunakan</p>
+                                        <p><strong>Kedaluwarsa:</strong> 30 Jun 2026</p>
+                                    </div>
+                                </div>
+                                <!-- Software Item 3 -->
+                                <div class="software-card">
+                                    <div class="software-header">
+                                        <h3>Visual Studio Code</h3>
+                                        <span class="badge badge-gray">Open Source</span>
+                                    </div>
+                                    <div class="software-details">
+                                        <p><strong>Vendor:</strong> Microsoft</p>
+                                        <p><strong>Versi:</strong> 1.95</p>
+                                        <p><strong>Lisensi:</strong> 75 / 999 digunakan</p>
+                                    </div>
+                                </div>
+                                <!-- Software Item 4 -->
+                                <div class="software-card">
+                                    <div class="software-header">
+                                        <h3>AutoCAD</h3>
+                                        <span class="badge badge-yellow">Individual</span>
+                                    </div>
+                                    <div class="software-details">
+                                        <p><strong>Vendor:</strong> Autodesk</p>
+                                        <p><strong>Versi:</strong> 2024</p>
+                                        <p><strong>Lisensi:</strong> 10 / 10 digunakan</p>
+                                        <p><strong>Kedaluwarsa:</strong> 15 Mar 2026</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function showTab(tabName) {
+            // Hide all tabs
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // Remove active from all triggers
+            document.querySelectorAll('.tab-trigger').forEach(trigger => {
+                trigger.classList.remove('active');
+            });
+            // Show selected tab
+            document.getElementById('tab-' + tabName).classList.add('active');
+            // Add active to clicked trigger
+            event.target.classList.add('active');
+        }
+
+        function openDialog() {
+            alert('Dialog untuk menambah perangkat akan muncul di sini');
+        }
+    </script>
+</body>
+</html>
