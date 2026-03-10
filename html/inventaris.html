@@ -1,0 +1,1230 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Inventaris Lab - Database Version</title>
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        body {
+            background: #f3f4f8;
+            display: flex;
+        }
+
+        /* ================= SIDEBAR ================= */
+        .sidebar {
+            width: 250px;
+            min-height: 100vh;
+            background: linear-gradient(180deg, #7c3aed, #5b21b6);
+            color: white;
+            padding: 25px 20px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 40px;
+        }
+
+        .sidebar-logo img {
+            width: 50px;
+            height: auto;
+        }
+
+        .sidebar-logo h2 {
+            margin: 0;
+            font-size: 1.2rem;
+            line-height: 1.3;
+        }
+
+        .sidebar-logo p {
+            font-size: 0.8rem;
+            opacity: 0.9;
+            margin-top: 2px;
+        }
+
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 12px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: block;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .sidebar a:hover,
+        .sidebar a.active {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .logout-btn {
+            margin-top: auto;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.2);
+            border: none;
+            color: white;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 100%;
+        }
+
+        .logout-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+
+        /* ================= MAIN ================= */
+        .main {
+            flex: 1;
+            padding: 30px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+
+        .header h1 {
+            font-size: 26px;
+        }
+
+        .btn-primary {
+            background: #7c3aed;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: background 0.2s;
+            box-shadow: 0 4px 8px rgba(124,58,237,0.3);
+        }
+        .btn-primary:hover {
+            background: #6b2fd6;
+        }
+
+        /* ================= FILTER BAR ================= */
+        .filter-bar {
+            background: white;
+            padding: 18px 22px;
+            border-radius: 20px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.02);
+            margin-bottom: 25px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .search-group {
+            flex: 2;
+            min-width: 240px;
+            display: flex;
+            align-items: center;
+            background: #f2f2f7;
+            border-radius: 40px;
+            padding: 0 15px;
+            border: 1px solid #e2e4e9;
+        }
+        .search-group i {
+            color: #888;
+            margin-right: 8px;
+        }
+        .search-group input {
+            width: 100%;
+            padding: 12px 0;
+            border: none;
+            background: transparent;
+            outline: none;
+            font-size: 14px;
+        }
+
+        .filter-select {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        .filter-select label {
+            font-size: 0.9rem;
+            color: #444;
+            font-weight: 500;
+        }
+        .filter-select select {
+            padding: 8px 25px 8px 12px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            background: white;
+            font-size: 0.9rem;
+            cursor: pointer;
+            outline: none;
+            appearance: none;
+            background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23555' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'/></svg>");
+            background-repeat: no-repeat;
+            background-position: right 8px center;
+            background-size: 14px;
+        }
+
+        .badge-filter {
+            background: #edf2f7;
+            border-radius: 20px;
+            padding: 4px 14px;
+            font-size: 0.8rem;
+            color: #2d3748;
+        }
+
+        /* ================= CARD ================= */
+        .stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.02);
+            border: 1px solid #eaecf0;
+        }
+
+        .card h4 {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 6px;
+        }
+
+        .card h2 {
+            font-size: 28px;
+            margin: 0 0 4px;
+        }
+
+        .card p {
+            color: #777;
+            font-size: 0.8rem;
+        }
+
+        /* ================= TABLE ================= */
+        .table-box {
+            background: white;
+            padding: 20px;
+            border-radius: 20px;
+            box-shadow: 0 8px 22px rgba(0,0,0,0.02);
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            min-width: 900px;
+        }
+
+        th, td {
+            padding: 14px 10px;
+            border-bottom: 1px solid #ecf0f5;
+            font-size: 14px;
+            text-align: left;
+        }
+
+        th {
+            color: #5a5f73;
+            font-weight: 600;
+            background: #fafbfe;
+        }
+
+        .badge {
+            padding: 4px 12px;
+            border-radius: 30px;
+            font-size: 12px;
+            font-weight: 600;
+            color: white;
+            display: inline-block;
+            text-align: center;
+            min-width: 80px;
+        }
+
+        .aktif { background: #16a34a; }
+        .rusak { background: #dc2626; }
+        .maintenance { background: #ea580c; }
+        .retired { background: #6b7280; }
+
+        .aksi-icons {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+        .aksi-icons img {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            transition: transform 0.1s, filter 0.2s;
+            object-fit: contain;
+        }
+        .aksi-icons img:hover {
+            transform: scale(1.15);
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.2));
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .no-data {
+            text-align: center;
+            padding: 30px;
+            color: #888;
+            font-style: italic;
+        }
+
+        /* ================= MODAL FORM ================= */
+        .modal, .modal-hapus {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-card {
+            background: white;
+            width: 560px;
+            max-width: 96%;
+            border-radius: 28px;
+            padding: 28px 30px;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+        }
+
+        .modal-card h2 {
+            margin-bottom: 24px;
+            color: #1e293b;
+            font-size: 1.8rem;
+            border-left: 8px solid #7c3aed;
+            padding-left: 16px;
+        }
+
+        .form-group {
+            margin-bottom: 18px;
+        }
+
+        .form-group label {
+            font-weight: 600;
+            font-size: 0.9rem;
+            color: #334155;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .label-row {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 6px;
+            flex-wrap: wrap;
+        }
+        .label-row label {
+            margin-bottom: 0;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 16px;
+            border: 1px solid #d1d5db;
+            border-radius: 18px;
+            font-size: 0.95rem;
+            background: #f9fafc;
+            transition: 0.2s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: #7c3aed;
+            outline: none;
+            background: white;
+        }
+
+        .form-row {
+            display: flex;
+            gap: 15px;
+        }
+        .form-row .form-group {
+            flex: 1;
+        }
+
+        .textarea-note textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        .modal-actions {
+            display: flex;
+            justify-content: flex-end;
+            gap: 15px;
+            margin-top: 28px;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            padding: 10px 24px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+        }
+
+        .btn-solid {
+            background: #7c3aed;
+            border: none;
+            padding: 10px 28px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            box-shadow: 0 6px 12px rgba(124,58,237,0.3);
+        }
+
+        .btn-solid:hover {
+            background: #6b2fd6;
+        }
+        .btn-outline:hover {
+            background: #f1f5f9;
+        }
+
+        .required:after {
+            content: "*";
+            color: #dc2626;
+            margin-left: 4px;
+        }
+
+        .btn-tambah-opsi, .btn-hapus-opsi {
+            color: white;
+            border: none;
+            padding: 4px 10px;
+            border-radius: 30px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            cursor: pointer;
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            transition: background 0.2s;
+            line-height: 1.4;
+        }
+        .btn-tambah-opsi {
+            background: #10b981;
+        }
+        .btn-tambah-opsi:hover {
+            background: #059669;
+        }
+        .btn-hapus-opsi {
+            background: #ef4444;
+        }
+        .btn-hapus-opsi:hover {
+            background: #dc2626;
+        }
+
+        .modal-hapus-card {
+            background: white;
+            width: 400px;
+            max-width: 90%;
+            border-radius: 28px;
+            padding: 28px 30px;
+            text-align: center;
+            box-shadow: 0 30px 50px rgba(0,0,0,0.3);
+        }
+
+        .modal-hapus-card h2 {
+            font-size: 1.8rem;
+            color: #1e293b;
+            margin-bottom: 15px;
+        }
+
+        .modal-hapus-card p {
+            margin: 20px 0 30px;
+            font-size: 1rem;
+            color: #334155;
+        }
+
+        .hapus-actions {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn-hapus-batal {
+            background: transparent;
+            border: 1px solid #cbd5e1;
+            padding: 10px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: #475569;
+            cursor: pointer;
+            font-size: 1rem;
+        }
+
+        .btn-hapus-hapus {
+            background: #dc2626;
+            border: none;
+            padding: 10px 32px;
+            border-radius: 40px;
+            font-weight: 600;
+            color: white;
+            cursor: pointer;
+            font-size: 1rem;
+            box-shadow: 0 6px 12px rgba(220,38,38,0.3);
+        }
+        .btn-hapus-hapus:hover {
+            background: #b91c1c;
+        }
+        
+        .warning-text {
+            font-size: 0.7rem;
+            color: #ef4444;
+            margin-left: 8px;
+            font-style: italic;
+            display: none;
+        }
+        
+        #itemKode {
+            background-color: #f0f0f0;
+            cursor: not-allowed;
+        }
+    </style>
+</head>
+<body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+        <div class="sidebar-logo">
+            <img src="logo uniska.png" alt="Logo Labkom" onerror="this.src='https://via.placeholder.com/50x50/7c3aed/ffffff?text=UNISKA'">
+            <div>
+                <h2>Inventaris Labkom</h2>
+                <p>Universitas Uniska</p>
+            </div>
+        </div>
+        
+        <a class="active" onclick="showPage('komputer', this)">Komputer</a>
+        <a onclick="showPage('hardware', this)">Hardware</a>
+        <a onclick="showPage('jaringan', this)">Perangkat Jaringan</a>
+        <a onclick="showPage('furniture', this)">Furniture</a>
+        <a onclick="showPage('maintenance', this)">Alat Maintenance</a>
+        <a onclick="showPage('multimedia', this)">Perangkat Multimedia</a>
+        <button class="logout-btn" onclick="logout()">
+            <img src="logout.png" alt="Logout Icon" onerror="this.src='https://via.placeholder.com/18x18/ffffff/7c3aed?text=↪'">
+            <span>Logout</span>
+        </button>
+    </div>
+
+    <!-- MAIN CONTENT (akan diisi oleh JavaScript) -->
+    <div class="main" id="main-content">
+        <!-- Content akan di-load via JavaScript -->
+        <div style="display: flex; justify-content: center; align-items: center; height: 100%;">
+            <div style="text-align: center;">
+                <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #7c3aed;"></i>
+                <p style="margin-top: 20px; color: #666;">Memuat data...</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TAMBAH/EDIT PERANGKAT -->
+    <div id="modalTambah" class="modal">
+        <div class="modal-card">
+            <h2 id="modalTitle">Tambah Perangkat</h2>
+            <form id="formTambah" onsubmit="event.preventDefault(); simpanPerangkat();">
+                <input type="hidden" id="editId" value="">
+                <div class="form-group">
+                    <label class="required">Kode Aset</label>
+                    <input type="text" id="itemKode" placeholder="Otomatis jika kosong" readonly>
+                </div>
+                <div class="form-group">
+                    <label class="required">Nama Item / Model</label>
+                    <input type="text" id="itemNama" placeholder="Mis: Dell OptiPlex 7090" required>
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label class="required">Kategori</label>
+                            <button type="button" class="btn-tambah-opsi" onclick="tambahOpsiKategori()"><i class="fas fa-plus"></i> Tambah</button>
+                            <button type="button" class="btn-hapus-opsi" onclick="hapusOpsiKategori()"><i class="fas fa-trash"></i> Hapus</button>
+                        </div>
+                        <select id="itemKategori" required>
+                            <option value="">Pilih Kategori</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <div class="label-row">
+                            <label class="required">Status</label>
+                            <button type="button" class="btn-tambah-opsi" onclick="tambahOpsiStatus()"><i class="fas fa-plus"></i> Tambah</button>
+                            <button type="button" class="btn-hapus-opsi" onclick="hapusOpsiStatus()"><i class="fas fa-trash"></i> Hapus</button>
+                        </div>
+                        <select id="itemStatus" required>
+                            <option value="">Pilih Status</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="form-group textarea-note">
+                    <label>Spesifikasi</label>
+                    <textarea id="itemSpesifikasi" placeholder="Contoh: Intel i7, 16GB, 512GB SSD"></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Catatan</label>
+                    <input type="text" id="itemCatatan" placeholder="Ruang Lab, lokasi, dll">
+                </div>
+                <div class="form-row">
+                    <div class="form-group">
+                        <label>Garansi s/d</label>
+                        <input type="date" id="itemGaransi">
+                    </div>
+                    <div class="form-group">
+                        <label>Tgl Pembelian</label>
+                        <input type="date" id="itemTglBeli">
+                    </div>
+                </div>
+                <div class="modal-actions">
+                    <button type="button" class="btn-outline" onclick="tutupModal()">Batal</button>
+                    <button type="submit" class="btn-solid" id="btnSimpan">Simpan</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <!-- MODAL KONFIRMASI HAPUS -->
+    <div id="modalHapus" class="modal-hapus">
+        <div class="modal-hapus-card">
+            <h2>Konfirmasi Hapus</h2>
+            <p id="hapusMessage">Apakah Anda yakin ingin menghapus item ini?</p>
+            <div class="hapus-actions">
+                <button class="btn-hapus-batal" onclick="tutupModalHapus()">Batal</button>
+                <button class="btn-hapus-hapus" id="hapusConfirmBtn" onclick="konfirmasiHapus()">Hapus</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ==================== DATA AWAL ====================
+        // Data kosong untuk setiap halaman
+        let dataStore = {
+            komputer: [],
+            hardware: [],
+            jaringan: [],
+            furniture: [],
+            maintenance: [],
+            multimedia: []
+        };
+
+        // Kategori untuk setiap halaman
+        let kategoriOptions = {
+            komputer: ['Desktop', 'Laptop', 'All-in-One'],
+            hardware: ['Proyektor', 'Printer', 'Keyboard', 'Mouse', 'Server', 'UPS', 'Wifi'],
+            jaringan: ['Switch', 'Router', 'Patch Panel', 'Kabel LAN', 'Server Jaringan'],
+            furniture: ['Meja', 'Kursi', 'Lemari Penyimpanan', 'Whiteboard', 'Layar Proyektor'],
+            maintenance: ['Toolkit Service', 'Obeng Set', 'Thermal Paste', 'Blower/Air Duster', 'Multimeter'],
+            multimedia: ['Kamera', 'Webcam', 'Mikrofon', 'Speaker', 'Smart TV']
+        };
+
+        // Status options
+        let statusOptions = ['Aktif', 'Rusak', 'Maintenance', 'Retired'];
+
+        // Kategori default (tidak bisa dihapus)
+        const defaultKategori = {
+            komputer: ['Desktop', 'Laptop', 'All-in-One'],
+            hardware: ['Proyektor', 'Printer', 'Keyboard', 'Mouse', 'Server', 'UPS', 'Wifi'],
+            jaringan: ['Switch', 'Router', 'Patch Panel', 'Kabel LAN', 'Server Jaringan'],
+            furniture: ['Meja', 'Kursi', 'Lemari Penyimpanan', 'Whiteboard', 'Layar Proyektor'],
+            maintenance: ['Toolkit Service', 'Obeng Set', 'Thermal Paste', 'Blower/Air Duster', 'Multimeter'],
+            multimedia: ['Kamera', 'Webcam', 'Mikrofon', 'Speaker', 'Smart TV']
+        };
+
+        const defaultStatus = ['Aktif', 'Rusak', 'Maintenance', 'Retired'];
+
+        // ==================== STATE MANAGEMENT ====================
+        let currentPage = 'komputer';
+        let itemToDelete = null;
+        let hapusMode = '';
+        let opsiToDelete = '';
+
+        // Mapping halaman ke judul
+        const pageTitles = {
+            komputer: 'Daftar Perangkat Komputer',
+            hardware: 'Daftar Perangkat Hardware',
+            jaringan: 'Perangkat Jaringan',
+            furniture: 'Furniture Lab',
+            maintenance: 'Alat Maintenance',
+            multimedia: 'Perangkat Multimedia'
+        };
+
+        // Prefix untuk generate kode aset
+        const prefixMap = {
+            'Desktop': 'PC', 'Laptop': 'LAP', 'All-in-One': 'AIO',
+            'Proyektor': 'PRJ', 'Printer': 'PRN', 'Keyboard': 'KBD',
+            'Mouse': 'MOU', 'Server': 'SRV', 'UPS': 'UPS', 'Wifi': 'WF',
+            'Switch': 'SW', 'Router': 'RTR', 'Patch Panel': 'PP',
+            'Kabel LAN': 'LAN', 'Server Jaringan': 'SRVJ', 'Meja': 'MJ',
+            'Kursi': 'KSI', 'Lemari Penyimpanan': 'LMR', 'Whiteboard': 'WBD',
+            'Layar Proyektor': 'LYR', 'Toolkit Service': 'TL', 'Obeng Set': 'OBG',
+            'Thermal Paste': 'TP', 'Blower/Air Duster': 'BLW', 'Multimeter': 'MUL',
+            'Kamera': 'CAM', 'Webcam': 'WEB', 'Mikrofon': 'MIC',
+            'Speaker': 'SPK', 'Smart TV': 'TV'
+        };
+
+        // ==================== INITIALIZATION ====================
+        document.addEventListener('DOMContentLoaded', function() {
+            loadPage('komputer');
+        });
+
+        // ==================== PAGE LOADING ====================
+        function loadPage(page) {
+            currentPage = page;
+            renderPage(page, dataStore[page]);
+        }
+
+        // ==================== RENDER FUNCTIONS ====================
+        function renderPage(page, data) {
+            const mainContent = document.getElementById('main-content');
+            
+            // Buat struktur halaman
+            let html = `
+                <div id="${page}">
+                    <div class="header">
+                        <h1>${pageTitles[page]}</h1>
+                        <button class="btn-primary" onclick="bukaModalTambah()"><i class="fas fa-plus"></i> Tambah Perangkat</button>
+                    </div>
+                    <div class="filter-bar">
+                        <div class="search-group">
+                            <i class="fas fa-search"></i>
+                            <input type="text" id="search${capitalize(page)}" placeholder="Cari..." onkeyup="filterPerangkat()">
+                        </div>
+                        <div class="filter-select">
+                            <label>Kategori:</label>
+                            <select id="kategori${capitalize(page)}" onchange="filterPerangkat()">
+                                <option value="Semua">Semua</option>
+                                ${kategoriOptions[page].map(k => `<option value="${k}">${k}</option>`).join('')}
+                            </select>
+                        </div>
+                        <div class="filter-select">
+                            <label>Status:</label>
+                            <select id="status${capitalize(page)}" onchange="filterPerangkat()">
+                                <option value="Semua">Semua</option>
+                                ${statusOptions.map(s => `<option value="${s}">${s}</option>`).join('')}
+                            </select>
+                        </div>
+                        <span class="badge-filter" id="resultCount${capitalize(page)}">${data.length} perangkat</span>
+                    </div>
+                    <section class="stats" id="stats${capitalize(page)}">
+                        ${renderStats(data)}
+                    </section>
+                    <div class="table-box">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Kode Aset</th>
+                                    <th>Kategori</th>
+                                    <th>Merk & Model</th>
+                                    <th>Spesifikasi</th>
+                                    <th>Catatan</th>
+                                    <th>Status</th>
+                                    <th>Garansi</th>
+                                    <th>Aksi</th>
+                                </tr>
+                            </thead>
+                            <tbody id="${page}Body">
+                                ${renderTableRows(data)}
+                            </tbody>
+                        </table>
+                        ${data.length === 0 ? '<div class="no-data">Belum ada perangkat. Klik "Tambah Perangkat" untuk menambahkan.</div>' : ''}
+                    </div>
+                </div>
+            `;
+            
+            mainContent.innerHTML = html;
+        }
+
+        function renderStats(data) {
+            const aktif = data.filter(d => d.status === 'Aktif').length;
+            const rusak = data.filter(d => d.status === 'Rusak').length;
+            const maint = data.filter(d => d.status === 'Maintenance').length;
+            const retired = data.filter(d => d.status === 'Retired').length;
+            
+            return `
+                <div class="card"><h4>Total ${pageTitles[currentPage].replace('Daftar ', '')}</h4><h2>${data.length}</h2><p>Semua jenis</p></div>
+                <div class="card"><h4>Aktif</h4><h2>${aktif}</h2><p>Siap digunakan</p></div>
+                <div class="card"><h4>Rusak</h4><h2>${rusak}</h2><p>Perlu perbaikan</p></div>
+                <div class="card"><h4>Maintenance</h4><h2>${maint}</h2><p>Sedang diperbaiki</p></div>
+                <div class="card"><h4>Retired</h4><h2>${retired}</h2><p>Tak terpakai</p></div>
+            `;
+        }
+
+        function renderTableRows(data) {
+            if (data.length === 0) return '';
+            
+            return data.map(item => {
+                // Format tanggal garansi
+                let garansi = item.garansi;
+                if (garansi && garansi !== '-') {
+                    try {
+                        const d = new Date(garansi);
+                        if (!isNaN(d)) {
+                            garansi = d.toLocaleDateString('id-ID', { day: 'numeric', month: 'short', year: 'numeric' });
+                        }
+                    } catch (e) {}
+                } else {
+                    garansi = '-';
+                }
+                
+                return `
+                <tr>
+                    <td>${item.kode}</td>
+                    <td>${item.kategori}</td>
+                    <td>${item.merk}</td>
+                    <td>${item.spek || '-'}</td>
+                    <td>${item.catatan || '-'}</td>
+                    <td><span class="badge ${statusClass(item.status)}">${item.status}</span></td>
+                    <td>${garansi}</td>
+                    <td class="aksi-icons">
+                        <img src="edit.png" alt="Edit" title="Edit" onclick="editPerangkat('${item.kode}')" onerror="this.src='https://via.placeholder.com/24x24/3b82f6/ffffff?text=E'">
+                        <img src="delete.png" alt="Hapus" title="Hapus" onclick="bukaModalHapus('${item.kode}')" onerror="this.src='https://via.placeholder.com/24x24/ef4444/ffffff?text=D'">
+                    </td>
+                </tr>
+            `}).join('');
+        }
+
+        // ==================== FILTER FUNCTIONS ====================
+        function filterPerangkat() {
+            const searchId = `search${capitalize(currentPage)}`;
+            const kategoriId = `kategori${capitalize(currentPage)}`;
+            const statusId = `status${capitalize(currentPage)}`;
+            
+            const keyword = document.getElementById(searchId)?.value.toLowerCase() || '';
+            const kategori = document.getElementById(kategoriId)?.value || 'Semua';
+            const status = document.getElementById(statusId)?.value || 'Semua';
+            
+            const filtered = dataStore[currentPage].filter(item => {
+                const matchSearch = item.kode.toLowerCase().includes(keyword) || 
+                                   item.merk.toLowerCase().includes(keyword) || 
+                                   (item.spek && item.spek.toLowerCase().includes(keyword)) ||
+                                   (item.catatan && item.catatan.toLowerCase().includes(keyword));
+                
+                const matchKategori = kategori === 'Semua' || item.kategori === kategori;
+                const matchStatus = status === 'Semua' || item.status === status;
+                
+                return matchSearch && matchKategori && matchStatus;
+            });
+            
+            // Update tampilan dengan data yang sudah difilter
+            const tbody = document.getElementById(`${currentPage}Body`);
+            if (tbody) {
+                tbody.innerHTML = renderTableRows(filtered);
+            }
+            
+            // Update statistik dengan data yang difilter
+            updateStats(filtered);
+            
+            // Update count
+            document.getElementById(`resultCount${capitalize(currentPage)}`).innerText = filtered.length + ' perangkat';
+        }
+
+        function updateStats(data) {
+            const aktif = data.filter(d => d.status === 'Aktif').length;
+            const rusak = data.filter(d => d.status === 'Rusak').length;
+            const maint = data.filter(d => d.status === 'Maintenance').length;
+            const retired = data.filter(d => d.status === 'Retired').length;
+            
+            document.getElementById(`total${capitalize(currentPage)}`).innerText = data.length;
+            document.getElementById(`aktif${capitalize(currentPage)}`).innerText = aktif;
+            document.getElementById(`rusak${capitalize(currentPage)}`).innerText = rusak;
+            document.getElementById(`maintenance${capitalize(currentPage)}`).innerText = maint;
+            document.getElementById(`retired${capitalize(currentPage)}`).innerText = retired;
+        }
+
+        // ==================== MODAL FUNCTIONS ====================
+        function bukaModalTambah() {
+            document.getElementById('modalTitle').innerText = 'Tambah Perangkat';
+            document.getElementById('editId').value = '';
+            document.getElementById('itemKode').value = '';
+            document.getElementById('formTambah').reset();
+            
+            // Isi dropdown kategori
+            const kategoriSelect = document.getElementById('itemKategori');
+            kategoriSelect.innerHTML = '<option value="">Pilih Kategori</option>';
+            kategoriOptions[currentPage].forEach(k => {
+                kategoriSelect.innerHTML += `<option value="${k}">${k}</option>`;
+            });
+            
+            // Isi dropdown status
+            const statusSelect = document.getElementById('itemStatus');
+            statusSelect.innerHTML = '<option value="">Pilih Status</option>';
+            statusOptions.forEach(s => {
+                statusSelect.innerHTML += `<option value="${s}">${s}</option>`;
+            });
+            
+            document.getElementById('modalTambah').style.display = 'flex';
+        }
+
+        function tutupModal() {
+            document.getElementById('modalTambah').style.display = 'none';
+        }
+
+        function editPerangkat(kode) {
+            const item = dataStore[currentPage].find(d => d.kode === kode);
+            if (!item) return;
+            
+            document.getElementById('modalTitle').innerText = 'Edit Perangkat';
+            document.getElementById('editId').value = item.kode;
+            document.getElementById('itemKode').value = item.kode;
+            document.getElementById('itemNama').value = item.merk;
+            
+            // Isi dropdown kategori
+            const kategoriSelect = document.getElementById('itemKategori');
+            kategoriSelect.innerHTML = '<option value="">Pilih Kategori</option>';
+            kategoriOptions[currentPage].forEach(k => {
+                kategoriSelect.innerHTML += `<option value="${k}">${k}</option>`;
+            });
+            document.getElementById('itemKategori').value = item.kategori;
+            
+            // Isi dropdown status
+            const statusSelect = document.getElementById('itemStatus');
+            statusSelect.innerHTML = '<option value="">Pilih Status</option>';
+            statusOptions.forEach(s => {
+                statusSelect.innerHTML += `<option value="${s}">${s}</option>`;
+            });
+            document.getElementById('itemStatus').value = item.status;
+            
+            document.getElementById('itemSpesifikasi').value = item.spek || '';
+            document.getElementById('itemCatatan').value = item.catatan || '';
+            document.getElementById('itemGaransi').value = item.garansi || '';
+            document.getElementById('itemTglBeli').value = item.tglBeli || '';
+            
+            document.getElementById('modalTambah').style.display = 'flex';
+        }
+
+        function simpanPerangkat() {
+            const kodeEdit = document.getElementById('editId').value;
+            const kodeAset = document.getElementById('itemKode').value || generateKode(document.getElementById('itemKategori').value);
+            const namaItem = document.getElementById('itemNama').value.trim();
+            const kategori = document.getElementById('itemKategori').value;
+            const status = document.getElementById('itemStatus').value;
+            const spesifikasi = document.getElementById('itemSpesifikasi').value.trim();
+            const catatan = document.getElementById('itemCatatan').value.trim();
+            const garansi = document.getElementById('itemGaransi').value;
+            const tglBeli = document.getElementById('itemTglBeli').value;
+
+            if (!namaItem || !kategori || !status) {
+                alert('Nama Item, Kategori, dan Status wajib diisi!');
+                return;
+            }
+
+            const newItem = {
+                kode: kodeAset,
+                kategori: kategori,
+                merk: namaItem,
+                spek: spesifikasi || '-',
+                catatan: catatan || '-',
+                status: status,
+                garansi: garansi || '-',
+                tglBeli: tglBeli || '-'
+            };
+
+            if (kodeEdit) {
+                // Edit
+                const index = dataStore[currentPage].findIndex(d => d.kode === kodeEdit);
+                if (index !== -1) {
+                    dataStore[currentPage][index] = newItem;
+                }
+            } else {
+                // Tambah baru
+                dataStore[currentPage].push(newItem);
+            }
+
+            // Refresh tampilan
+            renderPage(currentPage, dataStore[currentPage]);
+            tutupModal();
+        }
+
+        function generateKode(kategori) {
+            const tahun = new Date().getFullYear();
+            const pref = prefixMap[kategori] || 'DEV';
+            
+            // Cari nomor terakhir untuk prefix yang sama
+            const existingKodes = dataStore[currentPage]
+                .filter(item => item.kode.startsWith(pref))
+                .map(item => {
+                    const parts = item.kode.split('-');
+                    return parts.length === 3 ? parseInt(parts[2]) : 0;
+                });
+            
+            const lastNumber = existingKodes.length > 0 ? Math.max(...existingKodes) : 0;
+            const nomor = (lastNumber + 1).toString().padStart(3, '0');
+            
+            return `${pref}-${tahun}-${nomor}`;
+        }
+
+        // ==================== OPTIONS MANAGEMENT ====================
+        function tambahOpsiKategori() {
+            const kategoriBaru = prompt("Masukkan nama kategori baru:");
+            if (kategoriBaru && kategoriBaru.trim() !== "") {
+                const trimmed = kategoriBaru.trim();
+                if (!kategoriOptions[currentPage].includes(trimmed)) {
+                    kategoriOptions[currentPage].push(trimmed);
+                    
+                    // Update dropdown di modal
+                    const select = document.getElementById('itemKategori');
+                    const option = document.createElement('option');
+                    option.value = trimmed;
+                    option.text = trimmed;
+                    select.appendChild(option);
+                    select.value = trimmed;
+                    
+                    // Update dropdown filter
+                    const filterSelect = document.getElementById(`kategori${capitalize(currentPage)}`);
+                    if (filterSelect) {
+                        const filterOption = document.createElement('option');
+                        filterOption.value = trimmed;
+                        filterOption.text = trimmed;
+                        filterSelect.appendChild(filterOption);
+                    }
+                    
+                    alert(`Kategori "${trimmed}" berhasil ditambahkan!`);
+                } else {
+                    alert("Kategori sudah ada!");
+                }
+            }
+        }
+
+        function hapusOpsiKategori() {
+            const select = document.getElementById('itemKategori');
+            const selectedValue = select.value;
+            
+            if (!selectedValue) {
+                alert("Pilih kategori yang ingin dihapus terlebih dahulu!");
+                return;
+            }
+            
+            // Cek apakah kategori termasuk default
+            if (defaultKategori[currentPage].includes(selectedValue)) {
+                alert("Kategori default tidak dapat dihapus!");
+                return;
+            }
+            
+            // Cek apakah kategori sedang digunakan
+            const isUsed = dataStore[currentPage].some(item => item.kategori === selectedValue);
+            if (isUsed) {
+                alert(`Kategori "${selectedValue}" sedang digunakan oleh perangkat, tidak dapat dihapus!`);
+                return;
+            }
+            
+            if (confirm(`Apakah Anda yakin ingin menghapus kategori "${selectedValue}"?`)) {
+                // Hapus dari kategoriOptions
+                const index = kategoriOptions[currentPage].indexOf(selectedValue);
+                if (index !== -1) {
+                    kategoriOptions[currentPage].splice(index, 1);
+                    
+                    // Update dropdown di modal
+                    select.innerHTML = '<option value="">Pilih Kategori</option>';
+                    kategoriOptions[currentPage].forEach(k => {
+                        select.innerHTML += `<option value="${k}">${k}</option>`;
+                    });
+                    
+                    // Update dropdown filter
+                    const filterSelect = document.getElementById(`kategori${capitalize(currentPage)}`);
+                    if (filterSelect) {
+                        filterSelect.innerHTML = '<option value="Semua">Semua</option>';
+                        kategoriOptions[currentPage].forEach(k => {
+                            filterSelect.innerHTML += `<option value="${k}">${k}</option>`;
+                        });
+                    }
+                    
+                    alert(`Kategori "${selectedValue}" berhasil dihapus!`);
+                }
+            }
+        }
+
+        function tambahOpsiStatus() {
+            const statusBaru = prompt("Masukkan nama status baru:");
+            if (statusBaru && statusBaru.trim() !== "") {
+                const trimmed = statusBaru.trim();
+                if (!statusOptions.includes(trimmed)) {
+                    statusOptions.push(trimmed);
+                    
+                    // Update dropdown di modal
+                    const select = document.getElementById('itemStatus');
+                    const option = document.createElement('option');
+                    option.value = trimmed;
+                    option.text = trimmed;
+                    select.appendChild(option);
+                    select.value = trimmed;
+                    
+                    // Update dropdown filter di semua halaman
+                    const pages = ['komputer', 'hardware', 'jaringan', 'furniture', 'maintenance', 'multimedia'];
+                    pages.forEach(page => {
+                        const filterSelect = document.getElementById(`status${capitalize(page)}`);
+                        if (filterSelect) {
+                            const filterOption = document.createElement('option');
+                            filterOption.value = trimmed;
+                            filterOption.text = trimmed;
+                            filterSelect.appendChild(filterOption);
+                        }
+                    });
+                    
+                    alert(`Status "${trimmed}" berhasil ditambahkan!`);
+                } else {
+                    alert("Status sudah ada!");
+                }
+            }
+        }
+
+        function hapusOpsiStatus() {
+            const select = document.getElementById('itemStatus');
+            const selectedValue = select.value;
+            
+            if (!selectedValue) {
+                alert("Pilih status yang ingin dihapus terlebih dahulu!");
+                return;
+            }
+            
+            // Cek apakah status termasuk default
+            if (defaultStatus.includes(selectedValue)) {
+                alert("Status default tidak dapat dihapus!");
+                return;
+            }
+            
+            // Cek apakah status sedang digunakan
+            let isUsed = false;
+            for (let page in dataStore) {
+                if (dataStore[page].some(item => item.status === selectedValue)) {
+                    isUsed = true;
+                    break;
+                }
+            }
+            
+            if (isUsed) {
+                alert(`Status "${selectedValue}" sedang digunakan oleh perangkat, tidak dapat dihapus!`);
+                return;
+            }
+            
+            if (confirm(`Apakah Anda yakin ingin menghapus status "${selectedValue}"?`)) {
+                // Hapus dari statusOptions
+                const index = statusOptions.indexOf(selectedValue);
+                if (index !== -1) {
+                    statusOptions.splice(index, 1);
+                    
+                    // Update dropdown di modal
+                    select.innerHTML = '<option value="">Pilih Status</option>';
+                    statusOptions.forEach(s => {
+                        select.innerHTML += `<option value="${s}">${s}</option>`;
+                    });
+                    
+                    // Update dropdown filter di semua halaman
+                    const pages = ['komputer', 'hardware', 'jaringan', 'furniture', 'maintenance', 'multimedia'];
+                    pages.forEach(page => {
+                        const filterSelect = document.getElementById(`status${capitalize(page)}`);
+                        if (filterSelect) {
+                            filterSelect.innerHTML = '<option value="Semua">Semua</option>';
+                            statusOptions.forEach(s => {
+                                filterSelect.innerHTML += `<option value="${s}">${s}</option>`;
+                            });
+                        }
+                    });
+                    
+                    alert(`Status "${selectedValue}" berhasil dihapus!`);
+                }
+            }
+        }
+
+        // ==================== DELETE FUNCTIONS ====================
+        function bukaModalHapus(kode) {
+            itemToDelete = kode;
+            document.getElementById('hapusMessage').innerText = 'Apakah Anda yakin ingin menghapus item ini?';
+            document.getElementById('modalHapus').style.display = 'flex';
+        }
+
+        function tutupModalHapus() {
+            document.getElementById('modalHapus').style.display = 'none';
+            itemToDelete = null;
+            hapusMode = '';
+        }
+
+        function konfirmasiHapus() {
+            if (itemToDelete) {
+                dataStore[currentPage] = dataStore[currentPage].filter(d => d.kode !== itemToDelete);
+                renderPage(currentPage, dataStore[currentPage]);
+            }
+            
+            tutupModalHapus();
+        }
+
+        // ==================== UTILITY FUNCTIONS ====================
+        function capitalize(s) {
+            return s.charAt(0).toUpperCase() + s.slice(1);
+        }
+
+        function statusClass(status) {
+            switch(status) {
+                case 'Aktif': return 'aktif';
+                case 'Rusak': return 'rusak';
+                case 'Maintenance': return 'maintenance';
+                case 'Retired': return 'retired';
+                default: return '';
+            }
+        }
+
+        function showPage(page, el) {
+            document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+            el.classList.add('active');
+            currentPage = page;
+            renderPage(page, dataStore[page]);
+        }
+
+        function logout() {
+            if (confirm('Apakah Anda yakin ingin logout?')) {
+                alert("Logout berhasil!");
+                window.location.href = "index.html";
+            }
+        }
+
+        // ==================== EXPOSE FUNCTIONS ====================
+        window.bukaModalTambah = bukaModalTambah;
+        window.tutupModal = tutupModal;
+        window.simpanPerangkat = simpanPerangkat;
+        window.editPerangkat = editPerangkat;
+        window.bukaModalHapus = bukaModalHapus;
+        window.tutupModalHapus = tutupModalHapus;
+        window.konfirmasiHapus = konfirmasiHapus;
+        window.filterPerangkat = filterPerangkat;
+        window.showPage = showPage;
+        window.logout = logout;
+        window.tambahOpsiKategori = tambahOpsiKategori;
+        window.tambahOpsiStatus = tambahOpsiStatus;
+        window.hapusOpsiKategori = hapusOpsiKategori;
+        window.hapusOpsiStatus = hapusOpsiStatus;
+    </script>
+</body>
+</html>
