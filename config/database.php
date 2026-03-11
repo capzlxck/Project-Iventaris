@@ -1,14 +1,18 @@
-<!-- <?php
+<?php
+// database.php
 $host = 'localhost';
 $dbname = 'inventaris_lab';
 $username = 'root';
 $password = '';
 
-try {
-    $pdo = new PDO("mysql:host=$host;dbname=$dbname;charset=utf8mb4", $username, $password);
-    $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-    $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
-} catch(PDOException $e) {
-    die("Koneksi database gagal: " . $e->getMessage());
+// Buat koneksi MySQLi
+$db = new mysqli($host, $username, $password, $dbname);
+
+// Cek koneksi
+if ($db->connect_error) {
+    die("Koneksi database gagal: " . $db->connect_error);
 }
-?> -->
+
+// Set charset
+$db->set_charset("utf8mb4");
+?>
