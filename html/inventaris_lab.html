@@ -174,11 +174,17 @@
             flex-direction: column;
         }
 
+        .sidebar-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 40px;
+        }
+
         .sidebar-logo {
             display: flex;
             align-items: center;
             gap: 12px;
-            margin-bottom: 40px;
         }
 
         .sidebar-logo img {
@@ -196,6 +202,33 @@
             font-size: 0.8rem;
             opacity: 0.9;
             margin-top: 2px;
+        }
+
+        /* Button Kelola Opsi di sidebar */
+        .btn-kelola-opsi-sidebar {
+            background: #f97316;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: background 0.2s, transform 0.2s;
+            box-shadow: 0 2px 8px rgba(249,115,22,0.3);
+        }
+        .btn-kelola-opsi-sidebar:hover {
+            background: #ea580c;
+            transform: scale(1.1);
+        }
+
+        .sidebar-nav {
+            flex: 1;
+            overflow-y: auto;
+            margin-bottom: 20px;
         }
 
         .sidebar a {
@@ -358,6 +391,12 @@
             border: 1px solid #eaecf0;
         }
 
+        /* Hanya card Total yang memiliki border */
+        .card.total-card {
+            border: 2px solid #7c3aed;
+            background: #f5f0ff;
+        }
+
         .card h4 {
             font-size: 14px;
             color: #666;
@@ -412,10 +451,11 @@
             min-width: 80px;
         }
 
-        .aktif { background: #16a34a; }
-        .rusak { background: #dc2626; }
-        .maintenance { background: #ea580c; }
-        .retired { background: #6b7280; }
+        /* Warna untuk status */
+        .badge.aktif { background: #16a34a; }
+        .badge.rusak { background: #dc2626; }
+        .badge.maintenance { background: #ea580c; }
+        .badge.retired { background: #6b7280; }
 
         .aksi-icons {
             display: flex;
@@ -438,7 +478,7 @@
             font-style: italic;
         }
 
-        .modal, .modal-hapus {
+        .modal, .modal-hapus, .modal-tambah-aset {
             display: none;
             position: fixed;
             z-index: 1000;
@@ -453,7 +493,7 @@
 
         .modal-card {
             background: white;
-            width: 560px;
+            width: 600px;
             max-width: 96%;
             border-radius: 28px;
             padding: 28px 30px;
@@ -464,7 +504,7 @@
             margin-bottom: 24px;
             color: #1e293b;
             font-size: 1.8rem;
-            border-left: 8px solid #7c3aed;
+            border-left: 8px solid #f97316;
             padding-left: 16px;
         }
 
@@ -503,7 +543,7 @@
         .form-group input:focus,
         .form-group select:focus,
         .form-group textarea:focus {
-            border-color: #7c3aed;
+            border-color: #f97316;
             outline: none;
             background: white;
         }
@@ -562,30 +602,29 @@
             margin-left: 4px;
         }
 
-        .btn-tambah-opsi, .btn-hapus-opsi {
+        .btn-opsi {
             color: white;
             border: none;
-            padding: 4px 10px;
+            padding: 8px 16px;
             border-radius: 30px;
-            font-size: 0.7rem;
+            font-size: 0.85rem;
             font-weight: 600;
             cursor: pointer;
             display: inline-flex;
             align-items: center;
-            gap: 4px;
+            gap: 6px;
             transition: background 0.2s;
-            line-height: 1.4;
         }
-        .btn-tambah-opsi {
+        .btn-tambah {
             background: #10b981;
         }
-        .btn-tambah-opsi:hover {
+        .btn-tambah:hover {
             background: #059669;
         }
-        .btn-hapus-opsi {
+        .btn-hapus {
             background: #ef4444;
         }
-        .btn-hapus-opsi:hover {
+        .btn-hapus:hover {
             background: #dc2626;
         }
 
@@ -652,6 +691,115 @@
         .hidden {
             display: none !important;
         }
+
+        /* Style untuk section tambah aset */
+        .aset-section {
+            background: #f8fafc;
+            border-radius: 16px;
+            padding: 20px;
+            margin-bottom: 20px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .aset-section h3 {
+            margin-bottom: 15px;
+            color: #334155;
+            font-size: 1.1rem;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .aset-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        .aset-item {
+            background: white;
+            padding: 15px;
+            border-radius: 12px;
+            border: 1px solid #e2e8f0;
+        }
+
+        .aset-item label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #475569;
+        }
+
+        .input-group-horizontal {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .input-group-horizontal input,
+        .input-group-horizontal select {
+            flex: 1;
+        }
+
+        .icon-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 0.7rem;
+            font-weight: 600;
+            margin-left: 8px;
+        }
+
+        .icon-badge.kategori {
+            background: #dbeafe;
+            color: #1e40af;
+        }
+
+        .icon-badge.status {
+            background: #dcfce7;
+            color: #166534;
+        }
+
+        .icon-badge.navbar {
+            background: #fed7aa;
+            color: #9a3412;
+        }
+
+        /* Style untuk section navbar */
+        .navbar-list {
+            margin-top: 10px;
+            max-height: 200px;
+            overflow-y: auto;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 10px;
+        }
+
+        .navbar-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 8px 12px;
+            border-bottom: 1px solid #e2e8f0;
+        }
+
+        .navbar-item:last-child {
+            border-bottom: none;
+        }
+
+        .navbar-item span {
+            font-weight: 500;
+        }
+
+        .navbar-item .btn-small {
+            padding: 4px 8px;
+            font-size: 0.7rem;
+        }
+
+        .navbar-item.default {
+            background: #f1f5f9;
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body>
@@ -702,20 +850,24 @@
     <div id="dashboardPage" class="dashboard-page hidden">
         <!-- SIDEBAR -->
         <div class="sidebar">
-            <div class="sidebar-logo">
-                <img src="logo uniska.png" alt="Logo Labkom" onerror="this.src='https://via.placeholder.com/50x50/7c3aed/ffffff?text=UNISKA'">
-                <div>
-                    <h2>Inventaris Labkom</h2>
-                    <p>Universitas Uniska</p>
+            <div class="sidebar-header">
+                <div class="sidebar-logo">
+                    <img src="logo uniska.png" alt="Logo Labkom" onerror="this.src='https://via.placeholder.com/50x50/7c3aed/ffffff?text=UNISKA'">
+                    <div>
+                        <h2>Inventaris Labkom</h2>
+                        <p>Universitas Uniska</p>
+                    </div>
                 </div>
+                <!-- Button Kelola Opsi di sidebar (atas navigasi) -->
+                <button class="btn-kelola-opsi-sidebar" onclick="bukaModalKelolaNavbar()" title="Kelola Menu">
+                    <i class="fas fa-bars"></i>
+                </button>
             </div>
             
-            <a class="active" onclick="showPage('komputer', this)">Komputer</a>
-            <a onclick="showPage('hardware', this)">Hardware</a>
-            <a onclick="showPage('jaringan', this)">Perangkat Jaringan</a>
-            <a onclick="showPage('furniture', this)">Furniture</a>
-            <a onclick="showPage('maintenance', this)">Alat Maintenance</a>
-            <a onclick="showPage('multimedia', this)">Perangkat Multimedia</a>
+            <div class="sidebar-nav" id="sidebarNav">
+                <!-- Navigasi akan diisi oleh JavaScript -->
+            </div>
+            
             <button class="logout-btn" onclick="logout()">
                 <i class="fas fa-sign-out-alt"></i>
                 <span>Logout</span>
@@ -729,6 +881,131 @@
                     <i class="fas fa-spinner fa-spin" style="font-size: 3rem; color: #7c3aed;"></i>
                     <p style="margin-top: 20px; color: #666;">Memuat data...</p>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL KELOLA NAVBAR (MENU SIDEBAR) -->
+    <div id="modalKelolaNavbar" class="modal-tambah-aset">
+        <div class="modal-card">
+            <h2><i class="fas fa-bars"></i> Kelola Menu Navigasi</h2>
+            
+            <div class="aset-section">
+                <h3>
+                    <i class="fas fa-plus-circle" style="color: #10b981;"></i> 
+                    Tambah Menu Baru
+                </h3>
+                <div class="aset-item">
+                    <label>Nama Menu</label>
+                    <input type="text" id="menuBaruInput" placeholder="Contoh: Server, Jaringan, dll" style="width: 100%; margin-bottom: 10px;">
+                    <button class="btn-opsi btn-tambah" onclick="tambahMenu()" style="width: 100%;">
+                        <i class="fas fa-plus"></i> Tambah Menu
+                    </button>
+                </div>
+            </div>
+            
+            <div class="aset-section">
+                <h3>
+                    <i class="fas fa-trash-alt" style="color: #ef4444;"></i> 
+                    Hapus Menu
+                </h3>
+                <div class="aset-item">
+                    <label>Pilih Menu yang Akan Dihapus</label>
+                    <select id="hapusMenuSelect" style="width: 100%; margin-bottom: 10px;">
+                        <option value="">Pilih menu</option>
+                    </select>
+                    <button class="btn-opsi btn-hapus" onclick="hapusMenu()" style="width: 100%;">
+                        <i class="fas fa-trash"></i> Hapus Menu
+                    </button>
+                </div>
+            </div>
+            
+            <div class="aset-section">
+                <h3>
+                    <i class="fas fa-list"></i> 
+                    Daftar Menu Saat Ini
+                </h3>
+                <div class="navbar-list" id="daftarMenuContainer">
+                    <!-- Daftar menu akan diisi JavaScript -->
+                </div>
+                <p style="font-size: 0.8rem; color: #666; margin-top: 10px;">
+                    <i class="fas fa-info-circle"></i> Menu default (Komputer, Hardware, Perangkat Jaringan, Furniture, Alat Maintenance, Perangkat Multimedia) tidak dapat dihapus.
+                </p>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn-solid" onclick="tutupModalKelolaNavbar()">Tutup</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- MODAL TAMBAH ASET (KATEGORI & STATUS) - TETAP ADA UNTUK FITUR LAMA -->
+    <div id="modalTambahAset" class="modal-tambah-aset">
+        <div class="modal-card">
+            <h2><i class="fas fa-boxes"></i> Kelola Opsi - <span id="asetPageName">Komputer</span></h2>
+            
+            <!-- Section Kategori -->
+            <div class="aset-section">
+                <h3>
+                    <i class="fas fa-tag" style="color: #f97316;"></i> 
+                    Kelola Kategori 
+                    <span class="icon-badge kategori">Kategori Aset</span>
+                </h3>
+                <div class="aset-grid">
+                    <!-- Tambah Kategori -->
+                    <div class="aset-item">
+                        <label><i class="fas fa-plus-circle" style="color: #10b981;"></i> Tambah Kategori Baru</label>
+                        <input type="text" id="kategoriBaruInput" placeholder="Contoh: Desktop, Laptop, Server" style="margin-bottom: 10px; width: 100%;">
+                        <button class="btn-opsi btn-tambah" onclick="tambahKategori()" style="width: 100%;">
+                            <i class="fas fa-plus"></i> Tambah Kategori
+                        </button>
+                    </div>
+                    
+                    <!-- Hapus Kategori -->
+                    <div class="aset-item">
+                        <label><i class="fas fa-trash-alt" style="color: #ef4444;"></i> Hapus Kategori</label>
+                        <select id="hapusKategoriSelect" style="width: 100%; margin-bottom: 10px;">
+                            <option value="">Pilih kategori yang akan dihapus</option>
+                        </select>
+                        <button class="btn-opsi btn-hapus" onclick="hapusKategori()" style="width: 100%;">
+                            <i class="fas fa-trash"></i> Hapus Kategori
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section Status -->
+            <div class="aset-section">
+                <h3>
+                    <i class="fas fa-clipboard-check" style="color: #f97316;"></i> 
+                    Kelola Status 
+                    <span class="icon-badge status">Status Aset</span>
+                </h3>
+                <div class="aset-grid">
+                    <!-- Tambah Status -->
+                    <div class="aset-item">
+                        <label><i class="fas fa-plus-circle" style="color: #10b981;"></i> Tambah Status Baru</label>
+                        <input type="text" id="statusBaruInput" placeholder="Contoh: Aktif, Rusak, Maintenance" style="margin-bottom: 10px; width: 100%;">
+                        <button class="btn-opsi btn-tambah" onclick="tambahStatus()" style="width: 100%;">
+                            <i class="fas fa-plus"></i> Tambah Status
+                        </button>
+                    </div>
+                    
+                    <!-- Hapus Status -->
+                    <div class="aset-item">
+                        <label><i class="fas fa-trash-alt" style="color: #ef4444;"></i> Hapus Status</label>
+                        <select id="hapusStatusSelect" style="width: 100%; margin-bottom: 10px;">
+                            <option value="">Pilih status yang akan dihapus</option>
+                        </select>
+                        <button class="btn-opsi btn-hapus" onclick="hapusStatus()" style="width: 100%;">
+                            <i class="fas fa-trash"></i> Hapus Status
+                        </button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="modal-actions">
+                <button class="btn-solid" onclick="tutupModalTambahAset()">Tutup</button>
             </div>
         </div>
     </div>
@@ -750,30 +1027,17 @@
                 </div>
                 <div class="form-row">
                     <div class="form-group">
-                        <div class="label-row">
-                            <label class="required">Kategori</label>
-                            <button type="button" class="btn-tambah-opsi" onclick="tambahOpsiKategori()"><i class="fas fa-plus"></i> Tambah</button>
-                            <button type="button" class="btn-hapus-opsi" onclick="hapusOpsiKategori()"><i class="fas fa-trash"></i> Hapus</button>
-                        </div>
+                        <label class="required">Kategori</label>
                         <select id="itemKategori" required>
                             <option value="">Pilih Kategori</option>
-                            <option value="Desktop">Desktop</option>
-                            <option value="Laptop">Laptop</option>
-                            <option value="All-in-One">All-in-One</option>
+                            <!-- Kategori akan ditambahkan secara dinamis -->
                         </select>
                     </div>
                     <div class="form-group">
-                        <div class="label-row">
-                            <label class="required">Status</label>
-                            <button type="button" class="btn-tambah-opsi" onclick="tambahOpsiStatus()"><i class="fas fa-plus"></i> Tambah</button>
-                            <button type="button" class="btn-hapus-opsi" onclick="hapusOpsiStatus()"><i class="fas fa-trash"></i> Hapus</button>
-                        </div>
+                        <label class="required">Status</label>
                         <select id="itemStatus" required>
                             <option value="">Pilih Status</option>
-                            <option value="Aktif">Aktif</option>
-                            <option value="Rusak">Rusak</option>
-                            <option value="Maintenance">Maintenance</option>
-                            <option value="Retired">Retired</option>
+                            <!-- Status akan ditambahkan secara dinamis -->
                         </select>
                     </div>
                 </div>
@@ -845,7 +1109,7 @@
                 document.getElementById('dashboardPage').classList.remove('hidden');
                 
                 // Load data untuk dashboard
-                loadPage('komputer');
+                loadPage(defaultMenus[0].id);
             } else {
                 // Login gagal
                 document.getElementById('loginError').style.display = 'block';
@@ -863,31 +1127,65 @@
             }
         }
 
-        // ==================== DASHBOARD FUNCTIONS ====================
+        // ==================== DATA STRUCTURE ====================
+        // Default menu (tidak bisa dihapus)
+        const defaultMenus = [
+            { id: 'komputer', name: 'Komputer' },
+            { id: 'hardware', name: 'Hardware' },
+            { id: 'jaringan', name: 'Perangkat Jaringan' },
+            { id: 'furniture', name: 'Furniture' },
+            { id: 'maintenance', name: 'Alat Maintenance' },
+            { id: 'multimedia', name: 'Perangkat Multimedia' }
+        ];
+
+        // Custom menus (bisa ditambah/hapus)
+        let customMenus = [];
+
+        // Gabungan semua menu
+        let allMenus = [...defaultMenus];
+
+        // Data store untuk perangkat
+        let dataStore = {};
+
+        // Options untuk kategori per halaman
+        let kategoriOptions = {};
+
+        // Options untuk status (global)
+        let statusOptions = [];
+
+        // Current page
         let currentPage = 'komputer';
-        let deleteId = null;
+        let itemToDelete = null;
 
-        const pageTitles = {
-            komputer: 'Daftar Perangkat Komputer',
-            hardware: 'Daftar Perangkat Hardware',
-            jaringan: 'Perangkat Jaringan',
-            furniture: 'Furniture Lab',
-            maintenance: 'Alat Maintenance',
-            multimedia: 'Perangkat Multimedia'
-        };
+        const pageTitles = {};
+        const pageDisplayNames = {};
 
-        // Data store - akan diisi dari localStorage atau database nanti
-        let dataStore = {
-            komputer: [],
-            hardware: [],
-            jaringan: [],
-            furniture: [],
-            maintenance: [],
-            multimedia: []
-        };
+        // Inisialisasi data store untuk semua menu
+        function initializeDataStores() {
+            allMenus.forEach(menu => {
+                dataStore[menu.id] = [];
+                kategoriOptions[menu.id] = [];
+                pageTitles[menu.id] = `Daftar Perangkat ${menu.name}`;
+                pageDisplayNames[menu.id] = menu.name;
+            });
+        }
 
-        // Load data dari localStorage jika ada
+        // Load data dari localStorage
         function loadDataFromStorage() {
+            // Load custom menus
+            const savedCustomMenus = localStorage.getItem('customMenus');
+            if (savedCustomMenus) {
+                try {
+                    customMenus = JSON.parse(savedCustomMenus);
+                } catch (e) {
+                    customMenus = [];
+                }
+            }
+            
+            // Update allMenus
+            allMenus = [...defaultMenus, ...customMenus];
+            
+            // Load perangkat
             const savedData = localStorage.getItem('inventarisData');
             if (savedData) {
                 try {
@@ -896,35 +1194,121 @@
                     console.error('Gagal memuat data dari localStorage');
                 }
             }
+            
+            // Load status
+            const savedStatus = localStorage.getItem('statusOptions');
+            if (savedStatus) {
+                try {
+                    statusOptions = JSON.parse(savedStatus);
+                } catch (e) {
+                    console.error('Gagal memuat status dari localStorage');
+                }
+            }
+            
+            // Load kategori per halaman
+            allMenus.forEach(menu => {
+                const savedKategori = localStorage.getItem(`kategoriOptions_${menu.id}`);
+                if (savedKategori) {
+                    try {
+                        kategoriOptions[menu.id] = JSON.parse(savedKategori);
+                    } catch (e) {
+                        kategoriOptions[menu.id] = [];
+                    }
+                } else {
+                    kategoriOptions[menu.id] = [];
+                }
+            });
+            
+            // Inisialisasi dataStore untuk menu baru jika belum ada
+            allMenus.forEach(menu => {
+                if (!dataStore[menu.id]) {
+                    dataStore[menu.id] = [];
+                }
+                if (!pageTitles[menu.id]) {
+                    pageTitles[menu.id] = `Daftar Perangkat ${menu.name}`;
+                    pageDisplayNames[menu.id] = menu.name;
+                }
+            });
         }
 
         // Simpan data ke localStorage
         function saveDataToStorage() {
             localStorage.setItem('inventarisData', JSON.stringify(dataStore));
+            localStorage.setItem('statusOptions', JSON.stringify(statusOptions));
+            localStorage.setItem('customMenus', JSON.stringify(customMenus));
+            
+            allMenus.forEach(menu => {
+                if (kategoriOptions[menu.id]) {
+                    localStorage.setItem(`kategoriOptions_${menu.id}`, JSON.stringify(kategoriOptions[menu.id]));
+                }
+            });
         }
 
-        // Panggil load data saat halaman dimuat
+        // Render sidebar navigation
+        function renderSidebar() {
+            const sidebarNav = document.getElementById('sidebarNav');
+            let html = '';
+            
+            allMenus.forEach(menu => {
+                const activeClass = menu.id === currentPage ? 'active' : '';
+                html += `<a class="${activeClass}" onclick="showPage('${menu.id}', this)">${menu.name}</a>`;
+            });
+            
+            sidebarNav.innerHTML = html;
+        }
+
+        // Panggil inisialisasi
+        initializeDataStores();
         loadDataFromStorage();
 
         function loadPage(page) {
             currentPage = page;
-            renderPage(page, dataStore[page]);
+            renderSidebar();
+            renderPage(page, dataStore[page] || []);
         }
 
         function showPage(page, el) {
             document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
             el.classList.add('active');
-            currentPage = page;
-            renderPage(page, dataStore[page]);
+            loadPage(page);
         }
 
         function renderPage(page, data) {
             const mainContent = document.getElementById('main-content');
+            const pageName = pageDisplayNames[page] || page;
+            
+            // Generate statistik cards
+            let statsHtml = `
+                <div class="card total-card">
+                    <h4>Total</h4>
+                    <h2>${data.length}</h2>
+                    <p>Semua jenis</p>
+                </div>
+            `;
+            
+            // Hitung statistik berdasarkan status yang ada di data
+            const statusCounts = {};
+            data.forEach(item => {
+                if (item.status) {
+                    statusCounts[item.status] = (statusCounts[item.status] || 0) + 1;
+                }
+            });
+            
+            // Buat card untuk setiap status yang muncul di data
+            Object.keys(statusCounts).forEach(status => {
+                statsHtml += `
+                    <div class="card">
+                        <h4>${status}</h4>
+                        <h2>${statusCounts[status]}</h2>
+                        <p>${getStatusDescription(status)}</p>
+                    </div>
+                `;
+            });
             
             let html = `
                 <div id="${page}">
                     <div class="header">
-                        <h1>${pageTitles[page]}</h1>
+                        <h1>${pageTitles[page] || `Daftar Perangkat ${pageName}`}</h1>
                         <button class="btn-primary" onclick="bukaModalTambah()"><i class="fas fa-plus"></i> Tambah Perangkat</button>
                     </div>
                     <div class="filter-bar">
@@ -944,14 +1328,14 @@
                                 <label>Status:</label>
                                 <select id="status${capitalize(page)}" onchange="filterPerangkat()">
                                     <option value="Semua">Semua</option>
-                                    ${getUniqueStatus().map(s => `<option value="${s}">${s}</option>`).join('')}
+                                    ${statusOptions.map(s => `<option value="${s}">${s}</option>`).join('')}
                                 </select>
                             </div>
                         </div>
                         <span class="badge-filter" id="resultCount${capitalize(page)}">${data.length} perangkat</span>
                     </div>
                     <section class="stats" id="stats${capitalize(page)}">
-                        ${renderStats(data)}
+                        ${statsHtml}
                     </section>
                     <div class="table-box">
                         <table>
@@ -979,42 +1363,25 @@
             mainContent.innerHTML = html;
         }
 
+        function getStatusDescription(status) {
+            const descriptions = {
+                'Aktif': 'Siap digunakan',
+                'Rusak': 'Perlu perbaikan',
+                'Maintenance': 'Sedang diperbaiki',
+                'Retired': 'Tak terpakai'
+            };
+            return descriptions[status] || 'Status perangkat';
+        }
+
         function getUniqueKategori(page) {
-            const kategoris = dataStore[page].map(item => item.kategori);
+            const kategoris = (dataStore[page] || []).map(item => item.kategori);
             return [...new Set(kategoris)];
         }
 
-        function getUniqueStatus() {
-            const allStatus = [];
-            for (let page in dataStore) {
-                dataStore[page].forEach(item => {
-                    if (item.status && !allStatus.includes(item.status)) {
-                        allStatus.push(item.status);
-                    }
-                });
-            }
-            return allStatus.length > 0 ? allStatus : ['Aktif', 'Rusak', 'Maintenance', 'Retired'];
-        }
-
-        function renderStats(data) {
-            const aktif = data.filter(d => d.status === 'Aktif').length;
-            const rusak = data.filter(d => d.status === 'Rusak').length;
-            const maint = data.filter(d => d.status === 'Maintenance').length;
-            const retired = data.filter(d => d.status === 'Retired').length;
-            
-            return `
-                <div class="card"><h4>Total</h4><h2>${data.length}</h2><p>Semua jenis</p></div>
-                <div class="card"><h4>Aktif</h4><h2>${aktif}</h2><p>Siap digunakan</p></div>
-                <div class="card"><h4>Rusak</h4><h2>${rusak}</h2><p>Perlu perbaikan</p></div>
-                <div class="card"><h4>Maintenance</h4><h2>${maint}</h2><p>Sedang diperbaiki</p></div>
-                <div class="card"><h4>Retired</h4><h2>${retired}</h2><p>Tak terpakai</p></div>
-            `;
-        }
-
         function renderTableRows(data) {
-            if (data.length === 0) return '';
+            if (!data || data.length === 0) return '';
             
-            return data.map((item, index) => {
+            return data.map((item) => {
                 let garansi = item.garansi;
                 if (garansi && garansi !== '-') {
                     try {
@@ -1027,6 +1394,12 @@
                     garansi = '-';
                 }
                 
+                let badgeClass = '';
+                if (item.status === 'Aktif') badgeClass = 'aktif';
+                else if (item.status === 'Rusak') badgeClass = 'rusak';
+                else if (item.status === 'Maintenance') badgeClass = 'maintenance';
+                else if (item.status === 'Retired') badgeClass = 'retired';
+                
                 return `
                 <tr>
                     <td>${item.kode}</td>
@@ -1034,7 +1407,7 @@
                     <td>${item.merk}</td>
                     <td>${item.spek || '-'}</td>
                     <td>${item.catatan || '-'}</td>
-                    <td><span class="badge ${statusClass(item.status)}">${item.status}</span></td>
+                    <td><span class="badge ${badgeClass}">${item.status}</span></td>
                     <td>${garansi}</td>
                     <td class="aksi-icons">
                         <i class="fas fa-edit" style="color: #3b82f6;" onclick="editPerangkat('${item.kode}')"></i>
@@ -1053,7 +1426,7 @@
             const kategori = document.getElementById(kategoriId)?.value || 'Semua';
             const status = document.getElementById(statusId)?.value || 'Semua';
             
-            const filtered = dataStore[currentPage].filter(item => {
+            const filtered = (dataStore[currentPage] || []).filter(item => {
                 const matchSearch = (item.kode || '').toLowerCase().includes(keyword) || 
                                    (item.merk || '').toLowerCase().includes(keyword) || 
                                    (item.spek || '').toLowerCase().includes(keyword) ||
@@ -1070,23 +1443,35 @@
                 tbody.innerHTML = renderTableRows(filtered);
             }
             
-            updateStats(filtered);
+            updateFilteredStats(filtered);
             document.getElementById(`resultCount${capitalize(currentPage)}`).innerText = filtered.length + ' perangkat';
         }
 
-        function updateStats(data) {
-            const aktif = data.filter(d => d.status === 'Aktif').length;
-            const rusak = data.filter(d => d.status === 'Rusak').length;
-            const maint = data.filter(d => d.status === 'Maintenance').length;
-            const retired = data.filter(d => d.status === 'Retired').length;
-            
-            const statsHtml = `
-                <div class="card"><h4>Total</h4><h2>${data.length}</h2><p>Semua jenis</p></div>
-                <div class="card"><h4>Aktif</h4><h2>${aktif}</h2><p>Siap digunakan</p></div>
-                <div class="card"><h4>Rusak</h4><h2>${rusak}</h2><p>Perlu perbaikan</p></div>
-                <div class="card"><h4>Maintenance</h4><h2>${maint}</h2><p>Sedang diperbaiki</p></div>
-                <div class="card"><h4>Retired</h4><h2>${retired}</h2><p>Tak terpakai</p></div>
+        function updateFilteredStats(data) {
+            let statsHtml = `
+                <div class="card total-card">
+                    <h4>Total</h4>
+                    <h2>${data.length}</h2>
+                    <p>Semua jenis</p>
+                </div>
             `;
+            
+            const statusCounts = {};
+            data.forEach(item => {
+                if (item.status) {
+                    statusCounts[item.status] = (statusCounts[item.status] || 0) + 1;
+                }
+            });
+            
+            Object.keys(statusCounts).forEach(status => {
+                statsHtml += `
+                    <div class="card">
+                        <h4>${status}</h4>
+                        <h2>${statusCounts[status]}</h2>
+                        <p>${getStatusDescription(status)}</p>
+                    </div>
+                `;
+            });
             
             document.getElementById(`stats${capitalize(currentPage)}`).innerHTML = statsHtml;
         }
@@ -1104,7 +1489,27 @@
             document.getElementById('itemGaransi').value = '';
             document.getElementById('itemTglBeli').value = '';
             
+            updateKategoriDropdown();
+            updateStatusDropdown();
+            
             document.getElementById('modalTambah').style.display = 'flex';
+        }
+
+        function updateKategoriDropdown() {
+            const kategoriSelect = document.getElementById('itemKategori');
+            kategoriSelect.innerHTML = '<option value="">Pilih Kategori</option>';
+            
+            (kategoriOptions[currentPage] || []).forEach(k => {
+                kategoriSelect.innerHTML += `<option value="${k}">${k}</option>`;
+            });
+        }
+
+        function updateStatusDropdown() {
+            const statusSelect = document.getElementById('itemStatus');
+            statusSelect.innerHTML = '<option value="">Pilih Status</option>';
+            statusOptions.forEach(s => {
+                statusSelect.innerHTML += `<option value="${s}">${s}</option>`;
+            });
         }
 
         function tutupModal() {
@@ -1112,7 +1517,7 @@
         }
 
         function editPerangkat(kode) {
-            const item = dataStore[currentPage].find(d => d.kode === kode);
+            const item = (dataStore[currentPage] || []).find(d => d.kode === kode);
             if (!item) return;
             
             document.getElementById('modalTitle').innerText = 'Edit Perangkat';
@@ -1120,8 +1525,13 @@
             document.getElementById('itemKode').value = item.kode;
             document.getElementById('itemKode').readOnly = false;
             document.getElementById('itemNama').value = item.merk;
+            
+            updateKategoriDropdown();
+            updateStatusDropdown();
+            
             document.getElementById('itemKategori').value = item.kategori;
             document.getElementById('itemStatus').value = item.status;
+            
             document.getElementById('itemSpesifikasi').value = item.spek || '';
             document.getElementById('itemCatatan').value = item.catatan || '';
             document.getElementById('itemGaransi').value = item.garansi || '';
@@ -1141,7 +1551,6 @@
             const garansi = document.getElementById('itemGaransi').value;
             const tglBeli = document.getElementById('itemTglBeli').value;
 
-            // Validasi
             if (!kodeBarang) {
                 alert('Kode Barang wajib diisi!');
                 return;
@@ -1159,9 +1568,8 @@
                 return;
             }
 
-            // Cek duplikasi kode barang (kecuali untuk edit)
             if (!kodeEdit) {
-                const isDuplicate = dataStore[currentPage].some(item => item.kode === kodeBarang);
+                const isDuplicate = (dataStore[currentPage] || []).some(item => item.kode === kodeBarang);
                 if (isDuplicate) {
                     alert(`Kode Barang "${kodeBarang}" sudah digunakan!`);
                     return;
@@ -1179,45 +1587,227 @@
                 tglBeli: tglBeli || '-'
             };
 
+            if (!dataStore[currentPage]) {
+                dataStore[currentPage] = [];
+            }
+
             if (kodeEdit) {
-                // Edit
                 const index = dataStore[currentPage].findIndex(d => d.kode === kodeEdit);
                 if (index !== -1) {
                     dataStore[currentPage][index] = newItem;
                 }
             } else {
-                // Tambah baru
                 dataStore[currentPage].push(newItem);
             }
 
-            // Simpan ke localStorage
             saveDataToStorage();
-
-            // Refresh tampilan
             renderPage(currentPage, dataStore[currentPage]);
             tutupModal();
         }
 
-        function tambahOpsiKategori() {
-            const kategoriBaru = prompt("Masukkan nama kategori baru:");
-            if (kategoriBaru && kategoriBaru.trim() !== "") {
-                const trimmed = kategoriBaru.trim();
-                
-                // Update dropdown di modal
-                const select = document.getElementById('itemKategori');
+        // ==================== FUNGSI KELOLA NAVBAR ====================
+        function bukaModalKelolaNavbar() {
+            // Update dropdown hapus menu
+            const hapusMenuSelect = document.getElementById('hapusMenuSelect');
+            hapusMenuSelect.innerHTML = '<option value="">Pilih menu</option>';
+            
+            customMenus.forEach(menu => {
                 const option = document.createElement('option');
-                option.value = trimmed;
-                option.text = trimmed;
-                select.appendChild(option);
-                select.value = trimmed;
+                option.value = menu.id;
+                option.text = menu.name;
+                hapusMenuSelect.appendChild(option);
+            });
+            
+            // Update daftar menu
+            const daftarMenuContainer = document.getElementById('daftarMenuContainer');
+            let menuHtml = '';
+            
+            allMenus.forEach(menu => {
+                const isDefault = defaultMenus.some(dm => dm.id === menu.id);
+                menuHtml += `
+                    <div class="navbar-item ${isDefault ? 'default' : ''}">
+                        <span>${menu.name}</span>
+                        ${isDefault ? '<span class="icon-badge" style="background: #e2e8f0; color: #475569;">Default</span>' : ''}
+                    </div>
+                `;
+            });
+            
+            daftarMenuContainer.innerHTML = menuHtml;
+            
+            // Kosongkan input
+            document.getElementById('menuBaruInput').value = '';
+            
+            document.getElementById('modalKelolaNavbar').style.display = 'flex';
+        }
+
+        function tutupModalKelolaNavbar() {
+            document.getElementById('modalKelolaNavbar').style.display = 'none';
+        }
+
+        function tambahMenu() {
+            const menuBaru = document.getElementById('menuBaruInput').value.trim();
+            if (menuBaru === "") {
+                alert("Masukkan nama menu terlebih dahulu!");
+                return;
+            }
+            
+            // Cek apakah sudah ada menu dengan nama yang sama
+            const exists = allMenus.some(menu => menu.name.toLowerCase() === menuBaru.toLowerCase());
+            if (exists) {
+                alert(`Menu "${menuBaru}" sudah ada!`);
+                return;
+            }
+            
+            // Buat ID dari nama menu (lowercase, tanpa spasi)
+            const menuId = menuBaru.toLowerCase().replace(/\s+/g, '');
+            
+            const newMenu = {
+                id: menuId,
+                name: menuBaru
+            };
+            
+            customMenus.push(newMenu);
+            allMenus = [...defaultMenus, ...customMenus];
+            
+            // Inisialisasi data store untuk menu baru
+            dataStore[menuId] = [];
+            kategoriOptions[menuId] = [];
+            pageTitles[menuId] = `Daftar Perangkat ${menuBaru}`;
+            pageDisplayNames[menuId] = menuBaru;
+            
+            saveDataToStorage();
+            
+            // Update tampilan
+            renderSidebar();
+            bukaModalKelolaNavbar(); // Refresh modal
+            
+            alert(`Menu "${menuBaru}" berhasil ditambahkan!`);
+        }
+
+        function hapusMenu() {
+            const hapusMenuSelect = document.getElementById('hapusMenuSelect');
+            const selectedId = hapusMenuSelect.value;
+            
+            if (!selectedId) {
+                alert("Pilih menu yang ingin dihapus terlebih dahulu!");
+                return;
+            }
+            
+            // Cari menu yang akan dihapus
+            const menuToDelete = customMenus.find(m => m.id === selectedId);
+            if (!menuToDelete) return;
+            
+            // Cek apakah ada data di menu tersebut
+            if (dataStore[selectedId] && dataStore[selectedId].length > 0) {
+                alert(`Menu "${menuToDelete.name}" masih memiliki data perangkat. Hapus data terlebih dahulu!`);
+                return;
+            }
+            
+            if (confirm(`Apakah Anda yakin ingin menghapus menu "${menuToDelete.name}"?`)) {
+                // Hapus dari customMenus
+                customMenus = customMenus.filter(m => m.id !== selectedId);
+                allMenus = [...defaultMenus, ...customMenus];
                 
-                alert(`Kategori "${trimmed}" berhasil ditambahkan!`);
+                // Hapus data terkait
+                delete dataStore[selectedId];
+                delete kategoriOptions[selectedId];
+                delete pageTitles[selectedId];
+                delete pageDisplayNames[selectedId];
+                
+                // Hapus dari localStorage
+                localStorage.removeItem(`kategoriOptions_${selectedId}`);
+                
+                saveDataToStorage();
+                
+                // Jika halaman yang aktif adalah menu yang dihapus, pindah ke menu pertama
+                if (currentPage === selectedId) {
+                    currentPage = allMenus[0].id;
+                }
+                
+                // Update tampilan
+                renderSidebar();
+                loadPage(currentPage);
+                bukaModalKelolaNavbar(); // Refresh modal
+                
+                alert(`Menu "${menuToDelete.name}" berhasil dihapus!`);
             }
         }
 
-        function hapusOpsiKategori() {
-            const select = document.getElementById('itemKategori');
-            const selectedValue = select.value;
+        // ==================== FUNGSI KELOLA OPSI (KATEGORI & STATUS) ====================
+        function bukaModalTambahAset() {
+            document.getElementById('asetPageName').innerText = pageDisplayNames[currentPage] || currentPage;
+            
+            // Update dropdown hapus kategori
+            const hapusKategoriSelect = document.getElementById('hapusKategoriSelect');
+            hapusKategoriSelect.innerHTML = '<option value="">Pilih kategori yang akan dihapus</option>';
+            (kategoriOptions[currentPage] || []).forEach(k => {
+                const option = document.createElement('option');
+                option.value = k;
+                option.text = k;
+                hapusKategoriSelect.appendChild(option);
+            });
+            
+            // Update dropdown hapus status
+            const hapusStatusSelect = document.getElementById('hapusStatusSelect');
+            hapusStatusSelect.innerHTML = '<option value="">Pilih status yang akan dihapus</option>';
+            statusOptions.forEach(s => {
+                const option = document.createElement('option');
+                option.value = s;
+                option.text = s;
+                hapusStatusSelect.appendChild(option);
+            });
+            
+            // Kosongkan input
+            document.getElementById('kategoriBaruInput').value = '';
+            document.getElementById('statusBaruInput').value = '';
+            
+            document.getElementById('modalTambahAset').style.display = 'flex';
+        }
+
+        function tutupModalTambahAset() {
+            document.getElementById('modalTambahAset').style.display = 'none';
+        }
+
+        function tambahKategori() {
+            const kategoriBaru = document.getElementById('kategoriBaruInput').value.trim();
+            if (kategoriBaru === "") {
+                alert("Masukkan nama kategori terlebih dahulu!");
+                return;
+            }
+            
+            if (!kategoriOptions[currentPage]) {
+                kategoriOptions[currentPage] = [];
+            }
+            
+            if (!kategoriOptions[currentPage].includes(kategoriBaru)) {
+                kategoriOptions[currentPage].push(kategoriBaru);
+                saveDataToStorage();
+                
+                // Update dropdown hapus kategori
+                const hapusKategoriSelect = document.getElementById('hapusKategoriSelect');
+                const option = document.createElement('option');
+                option.value = kategoriBaru;
+                option.text = kategoriBaru;
+                hapusKategoriSelect.appendChild(option);
+                
+                // Update dropdown di modal tambah perangkat
+                updateKategoriDropdown();
+                
+                // Update filter kategori di halaman
+                updateFilterKategoriOptions();
+                
+                // Kosongkan input
+                document.getElementById('kategoriBaruInput').value = '';
+                
+                alert(`Kategori "${kategoriBaru}" berhasil ditambahkan!`);
+            } else {
+                alert(`Kategori "${kategoriBaru}" sudah ada!`);
+            }
+        }
+
+        function hapusKategori() {
+            const hapusKategoriSelect = document.getElementById('hapusKategoriSelect');
+            const selectedValue = hapusKategoriSelect.value;
             
             if (!selectedValue) {
                 alert("Pilih kategori yang ingin dihapus terlebih dahulu!");
@@ -1225,43 +1815,71 @@
             }
             
             // Cek apakah kategori sedang digunakan
-            const isUsed = dataStore[currentPage].some(item => item.kategori === selectedValue);
+            const isUsed = (dataStore[currentPage] || []).some(item => item.kategori === selectedValue);
             if (isUsed) {
                 alert(`Kategori "${selectedValue}" sedang digunakan oleh perangkat, tidak dapat dihapus!`);
                 return;
             }
             
             if (confirm(`Apakah Anda yakin ingin menghapus kategori "${selectedValue}"?`)) {
-                // Hapus dari dropdown
-                const index = Array.from(select.options).findIndex(opt => opt.value === selectedValue);
+                const index = kategoriOptions[currentPage].indexOf(selectedValue);
                 if (index !== -1) {
-                    select.remove(index);
+                    kategoriOptions[currentPage].splice(index, 1);
+                    saveDataToStorage();
+                    
+                    // Update dropdown hapus kategori
+                    hapusKategoriSelect.remove(hapusKategoriSelect.selectedIndex);
+                    
+                    // Update dropdown di modal tambah perangkat
+                    updateKategoriDropdown();
+                    
+                    // Update filter kategori di halaman
+                    updateFilterKategoriOptions();
+                    
+                    alert(`Kategori "${selectedValue}" berhasil dihapus!`);
                 }
-                
-                alert(`Kategori "${selectedValue}" berhasil dihapus!`);
             }
         }
 
-        function tambahOpsiStatus() {
-            const statusBaru = prompt("Masukkan nama status baru:");
-            if (statusBaru && statusBaru.trim() !== "") {
-                const trimmed = statusBaru.trim();
+        function tambahStatus() {
+            const statusBaru = document.getElementById('statusBaruInput').value.trim();
+            if (statusBaru === "") {
+                alert("Masukkan nama status terlebih dahulu!");
+                return;
+            }
+            
+            if (!statusOptions.includes(statusBaru)) {
+                statusOptions.push(statusBaru);
+                saveDataToStorage();
                 
-                // Update dropdown di modal
-                const select = document.getElementById('itemStatus');
+                // Update dropdown hapus status
+                const hapusStatusSelect = document.getElementById('hapusStatusSelect');
                 const option = document.createElement('option');
-                option.value = trimmed;
-                option.text = trimmed;
-                select.appendChild(option);
-                select.value = trimmed;
+                option.value = statusBaru;
+                option.text = statusBaru;
+                hapusStatusSelect.appendChild(option);
                 
-                alert(`Status "${trimmed}" berhasil ditambahkan!`);
+                // Update dropdown di modal tambah perangkat
+                updateStatusDropdown();
+                
+                // Update filter status di semua halaman
+                updateFilterStatusOptions();
+                
+                // Refresh halaman untuk menampilkan card status baru
+                renderPage(currentPage, dataStore[currentPage] || []);
+                
+                // Kosongkan input
+                document.getElementById('statusBaruInput').value = '';
+                
+                alert(`Status "${statusBaru}" berhasil ditambahkan!`);
+            } else {
+                alert(`Status "${statusBaru}" sudah ada!`);
             }
         }
 
-        function hapusOpsiStatus() {
-            const select = document.getElementById('itemStatus');
-            const selectedValue = select.value;
+        function hapusStatus() {
+            const hapusStatusSelect = document.getElementById('hapusStatusSelect');
+            const selectedValue = hapusStatusSelect.value;
             
             if (!selectedValue) {
                 alert("Pilih status yang ingin dihapus terlebih dahulu!");
@@ -1271,7 +1889,7 @@
             // Cek apakah status sedang digunakan
             let isUsed = false;
             for (let page in dataStore) {
-                if (dataStore[page].some(item => item.status === selectedValue)) {
+                if (dataStore[page] && dataStore[page].some(item => item.status === selectedValue)) {
                     isUsed = true;
                     break;
                 }
@@ -1283,17 +1901,57 @@
             }
             
             if (confirm(`Apakah Anda yakin ingin menghapus status "${selectedValue}"?`)) {
-                // Hapus dari dropdown
-                const index = Array.from(select.options).findIndex(opt => opt.value === selectedValue);
+                const index = statusOptions.indexOf(selectedValue);
                 if (index !== -1) {
-                    select.remove(index);
+                    statusOptions.splice(index, 1);
+                    saveDataToStorage();
+                    
+                    // Update dropdown hapus status
+                    hapusStatusSelect.remove(hapusStatusSelect.selectedIndex);
+                    
+                    // Update dropdown di modal tambah perangkat
+                    updateStatusDropdown();
+                    
+                    // Update filter status di semua halaman
+                    updateFilterStatusOptions();
+                    
+                    // Refresh halaman
+                    renderPage(currentPage, dataStore[currentPage] || []);
+                    
+                    alert(`Status "${selectedValue}" berhasil dihapus!`);
                 }
-                
-                alert(`Status "${selectedValue}" berhasil dihapus!`);
             }
         }
 
-        let itemToDelete = null;
+        function updateFilterKategoriOptions() {
+            const filterSelect = document.getElementById(`kategori${capitalize(currentPage)}`);
+            if (filterSelect) {
+                const currentValue = filterSelect.value;
+                filterSelect.innerHTML = '<option value="Semua">Semua</option>';
+                (kategoriOptions[currentPage] || []).forEach(k => {
+                    filterSelect.innerHTML += `<option value="${k}">${k}</option>`;
+                });
+                if (kategoriOptions[currentPage] && kategoriOptions[currentPage].includes(currentValue)) {
+                    filterSelect.value = currentValue;
+                }
+            }
+        }
+
+        function updateFilterStatusOptions() {
+            allMenus.forEach(menu => {
+                const filterSelect = document.getElementById(`status${capitalize(menu.id)}`);
+                if (filterSelect) {
+                    const currentValue = filterSelect.value;
+                    filterSelect.innerHTML = '<option value="Semua">Semua</option>';
+                    statusOptions.forEach(s => {
+                        filterSelect.innerHTML += `<option value="${s}">${s}</option>`;
+                    });
+                    if (statusOptions.includes(currentValue)) {
+                        filterSelect.value = currentValue;
+                    }
+                }
+            });
+        }
 
         function bukaModalHapus(kode) {
             itemToDelete = kode;
@@ -1308,12 +1966,9 @@
 
         function konfirmasiHapus() {
             if (itemToDelete) {
-                dataStore[currentPage] = dataStore[currentPage].filter(d => d.kode !== itemToDelete);
-                
-                // Simpan ke localStorage
+                dataStore[currentPage] = (dataStore[currentPage] || []).filter(d => d.kode !== itemToDelete);
                 saveDataToStorage();
-                
-                renderPage(currentPage, dataStore[currentPage]);
+                renderPage(currentPage, dataStore[currentPage] || []);
             }
             tutupModalHapus();
         }
@@ -1322,15 +1977,8 @@
             return s.charAt(0).toUpperCase() + s.slice(1);
         }
 
-        function statusClass(status) {
-            switch(status) {
-                case 'Aktif': return 'aktif';
-                case 'Rusak': return 'rusak';
-                case 'Maintenance': return 'maintenance';
-                case 'Retired': return 'retired';
-                default: return '';
-            }
-        }
+        // Render sidebar saat pertama kali load
+        renderSidebar();
     </script>
 </body>
 </html>
